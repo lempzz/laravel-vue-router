@@ -1,0 +1,23 @@
+{
+    "name": "lempzz/laravel-vue-router",
+    "description": "Simplify export Laravel routes to Vue",
+    "type": "library",
+    "license": "MIT License",
+    "authors": [
+        {
+            "name": "Viacheslav Verheles",
+            "email": "l3mpzz@gmail.com"
+        }
+    ],
+    "require": {
+        "php" : ">=7.0"
+    },
+    "require-dev": {
+        "laravel": ">=5.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lempzz\\LaravelVueRouter\\": "src/"
+        }
+    }
+}
