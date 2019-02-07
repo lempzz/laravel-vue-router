@@ -10,7 +10,7 @@ composer require lempzz/laravel-vue-router
 
 In your config/app.php append service provider to `providers` section:
 ```php
-\Lempzz\LaravelRunner\Providers\VueRouterServiceProvider::class,
+\Lempzz\LaravelVueRouter\VueRouterServiceProvider::class,
 
 ```
 
