@@ -2,7 +2,7 @@
     "name": "lempzz/laravel-vue-router",
     "description": "Simplify export Laravel routes to Vue",
     "type": "library",
-    "license": "MIT License",
+    "license": "MIT",
     "authors": [
         {
             "name": "Viacheslav Verheles",
