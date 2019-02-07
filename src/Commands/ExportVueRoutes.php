@@ -14,18 +14,13 @@ class ExportVueRoutes extends Command
 
     protected $prefix = '';
 
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->prefix = $this->argument('prefix') ?? '';
-    }
-
     public function handle()
     {
         $routes = Route::getRoutes();
 
         $export = [];
+
+        $this->prefix = $this->argument('prefix') ?? '';
 
         foreach ($routes as $route) {
             if ($this->prefix && trim($route->getPrefix(), '/') !== $this->prefix) {
