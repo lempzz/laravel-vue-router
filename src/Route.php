@@ -6,27 +6,15 @@ use Illuminate\Routing\Route as BaseRoute;
 
 class Route extends BaseRoute
 {
-    protected $componentName;
+    protected $vueComponent;
 
-    protected $componentPath;
-
-    public function vue(string $componentName)
+    public function vue(string $vueComponent)
     {
-        $this->componentName = $componentName;
-    }
-
-    public function vuePath(string $componentPath)
-    {
-        $this->componentPath = $componentPath;
+        $this->vueComponent = $vueComponent;
     }
 
     public function getVueComponent()
     {
-        return $this->componentPath . '/' . $this->componentName;
-    }
-
-    public function getRouter()
-    {
-        return $this->router;
+        return $this->vueComponent;
     }
 }

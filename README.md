@@ -18,8 +18,7 @@ Good! Now you can call `vue` and `vuePath` methods in your route files.
 ```php
 Route::get('/', 'DashboardController@index')
     ->name('dashboard.index')
-    ->vue('DashboardIndex.vue')
-    ->vuePath('dashboard/pages')
+    ->vue('components/pages/DashboardIndex.vue')
 ```
 
 For export routes call command:
@@ -35,4 +34,3 @@ php artisan help export:vue-routes
 
 Roadmap
 * Resource routes
-* Nested groups

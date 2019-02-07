@@ -4,11 +4,12 @@ namespace Lempzz\LaravelVueRouter\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Route;
+use Lempzz\LaravelVueRouter\Route as VueRoute;
 
 class ExportVueRoutes extends Command
 {
     protected $signature = 'export:vue-routes 
-                                    {prefix? : Filter routes by specific prefix}';
+                                    {prefix? : Filter routes by specific prefix (prefix or prefix/nested)}';
 
     protected $description = 'Export app routes';
 
@@ -23,7 +24,11 @@ class ExportVueRoutes extends Command
         $this->prefix = $this->argument('prefix') ?? '';
 
         foreach ($routes as $route) {
-            if ($this->prefix && trim($route->getPrefix(), '/') !== $this->prefix) {
+            if (!$component = $route->getVueComponent()) {
+                continue;
+            }
+
+            if ($this->filterByPrefix($route)) {
                 continue;
             }
 
@@ -32,7 +37,7 @@ class ExportVueRoutes extends Command
             $export[] = [
                 'name' => $route->getName(),
                 'path' => '/' . ($parameterNames ? $this->handleParameters($route->uri()) : $route->uri()),
-                'component' => $route->getVueComponent()
+                'component' => $component
             ];
         }
 
@@ -49,10 +54,13 @@ class ExportVueRoutes extends Command
     private function export(array $routes)
     {
         if (empty($routes)) {
+            $this->line('Routes is empty.');
+
             return null;
         }
 
-        $file = resource_path($this->getJsPath() . ($this->prefix ? $this->prefix . '_' : '') .'routes.json');
+        $namePrefix = $this->prefix ? implode('_', explode('/', $this->prefix)) . '_' : '';
+        $file = resource_path($this->getJsPath() . $namePrefix .'routes.json');
 
         $f = fopen($file, 'w+');
 
@@ -70,5 +78,15 @@ class ExportVueRoutes extends Command
         }
 
         return 'assets/js/';
+    }
+
+    private function getPrefix()
+    {
+        return $this->argument('prefix') ?? '';
+    }
+
+    private function filterByPrefix(VueRoute $route)
+    {
+        return $this->getPrefix() && trim($route->getPrefix(), '/') !== $this->getPrefix();
     }
 }
