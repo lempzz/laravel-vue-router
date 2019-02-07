@@ -37,7 +37,8 @@ class ExportVueRoutes extends Command
             $export[] = [
                 'name' => $route->getName(),
                 'path' => '/' . ($parameterNames ? $this->handleParameters($route->uri()) : $route->uri()),
-                'component' => $component
+                'component' => $component,
+                'vuePath' => $route->getAction('vuePath')
             ];
         }
 

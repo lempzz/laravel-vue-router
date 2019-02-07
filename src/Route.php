@@ -3,6 +3,7 @@
 namespace Lempzz\LaravelVueRouter;
 
 use Illuminate\Routing\Route as BaseRoute;
+use Illuminate\Support\Str;
 
 class Route extends BaseRoute
 {
@@ -15,6 +16,10 @@ class Route extends BaseRoute
 
     public function getVueComponent()
     {
+        if ($path = $this->getAction('vuePath')) {
+            return $path . '/' . Str::studly(Str::replaceFirst('.', '_', $this->getName())) . '.vue';
+        }
+
         return $this->vueComponent;
     }
 }
